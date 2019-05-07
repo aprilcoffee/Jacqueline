@@ -1,18 +1,17 @@
 var socket;
 var mic, fft;
-var canvas;
 var ellipseWidth;
 var buttonA;
 var buttonB;
 function setup() {
-  canvas = createCanvas(windowWidth, windowHeight);
-  socket = io.connect('10.254.19.90:3000');
+  createCanvas(windowWidth, windowHeight);
+  socket = io.connect('http://localhost:9527');
   mic = new p5.AudioIn()
   mic.start();
   fft = new p5.FFT();
   fft.setInput(mic);
-  peakDetect = new p5.PeakDetect();
-  frameRate(60);
+  peakDetect = new p5.PeakDetect(20,20000,0.15,20);
+  frameRate(30);
 
   button = createButton('preload');
   button.position(100,65);
@@ -21,19 +20,20 @@ function setup() {
   button = createButton('start');
   button.position(200,65);
   button.mousePressed(greetB);
+  ellipseWidth = 255;
 }
 
 function greetA() {
   var data = {
     x: -1
   }
-  socket.emit('mouse', data);
+  socket.emit('data', data);
 }
 function greetB() {
   var data = {
     x: -2
   }
-  socket.emit('mouse', data);
+  socket.emit('data', data);
 }
 
 
@@ -44,15 +44,21 @@ function triggerBeat() {
   var data = {
     x: ellipseWidth
   }
-  socket.emit('mouse', data);
+  socket.emit('data', data);
 }
 
 function draw() {
   background(255);
-  peakDetect.onPeak(triggerBeat);
+  //peakDetect.onPeak(triggerBeat);
   var spectrum = fft.analyze();
   fft.analyze();
   peakDetect.update(fft);
+  //peakDetect.onPeak(triggerBeat);
+    //
+  if(peakDetect.isDetected){
+      console.log("hello");
+        triggerBeat();
+  }
   // beginShape();
   // for (i = 0; i < spectrum.length; i++) {
   //   vertex(i, map(spectrum[i], 0, 255, height, 0));
@@ -61,9 +67,7 @@ function draw() {
 
   //micLevel = mic.getLevel();
   //ellipse(width / 2, constrain(height - micLevel * height * 5, 0, height), 10, 10);
-  console.log(ellipseWidth);
+  //console.log(ellipseWidth);
   ellipseWidth *= 0.95;
   ellipse(width / 2, height / 2, ellipseWidth, ellipseWidth);
-
 }
-
