@@ -5,12 +5,12 @@ var buttonA;
 var buttonB;
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  socket = io.connect('http://localhost:9527');
+  socket = io.connect('http://34.80.211.90:9527');
   mic = new p5.AudioIn()
   mic.start();
   fft = new p5.FFT();
   fft.setInput(mic);
-  peakDetect = new p5.PeakDetect(20,20000,0.15,20);
+  peakDetect = new p5.PeakDetect(20,20000,0.2,20);
   frameRate(30);
 
   button = createButton('preload');
@@ -25,13 +25,13 @@ function setup() {
 
 function greetA() {
   var data = {
-    x: -1
+    x: 255
   }
   socket.emit('data', data);
 }
 function greetB() {
   var data = {
-    x: -2
+    x: 255
   }
   socket.emit('data', data);
 }
@@ -53,7 +53,7 @@ function draw() {
   var spectrum = fft.analyze();
   fft.analyze();
   peakDetect.update(fft);
-  //peakDetect.onPeak(triggerBeat);
+  peakDetect.onPeak(triggerBeat);
     //
   if(peakDetect.isDetected){
       console.log("hello");
