@@ -5,7 +5,7 @@ var buttonA;
 var buttonB;
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  socket = io.connect('http://localhost:9527');
+  socket = io.connect('http://34.80.211.90:9527');
   mic = new p5.AudioIn()
   mic.start();
   fft = new p5.FFT();
