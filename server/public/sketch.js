@@ -4,7 +4,7 @@ function setup() {
  createCanvas(windowWidth,windowHeight);
  background(0);
 
- socket = io.connect('127.0.0.1:9527');
+ socket = io.connect('http://www.liutingchun-netart.com:9527');
  socket.on('newText',newDrawing);
  textAlign(CENTER);
  textSize(50);
