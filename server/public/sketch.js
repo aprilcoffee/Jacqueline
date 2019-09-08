@@ -1,21 +1,23 @@
 var socket;
-var input;
+var inputX,inputY;
 function setup() {
  createCanvas(windowWidth,windowHeight);
  background(0);
 
- socket = io.connect('http://www.liutingchun-netart.com:9527');
+ socket = io.connect('127.0.0.1:9527');
  socket.on('newText',newDrawing);
  textAlign(CENTER);
  textSize(50);
-    input = 0;
+    inputX = 0;
+    inputY = 0;
 }
 function newDrawing(data){
-    input = data.x;
-    console.log(input);
+    inputX = data.x;
+    inputY = data.y;
+    console.log(inputX,inputY);
 }
 
 function draw() {
- background(input);
-    input *= 0.93;
+     background(0);
+     ellipse(inputX,inputY,100,100);
 }
