@@ -14,9 +14,19 @@ io.sockets.on('connection', newConnection);
 
 var isConnected = false;
 console.log("running");
-
+var totalConnection = 0;
 function newConnection(socket){
-    console.log('new connection: '+socket.id);
+    totalConnection = totalConnection+1;
+    var init = {
+        total: totalConnection,
+        ip: socket.client.conn.remoteAddress
+    }
+    socket.emit("assignNumber",init);
+    
+    console.log(socket.client.conn.remoteAddress);
+    //console.log(socket.client.conn.request.headers);
+    //console.)
+    console.log('new connection: '+socket.id+"   Number:"+totalConnection);
     socket.on('data',dataMsg);
     function dataMsg(data){
         console.log(data);

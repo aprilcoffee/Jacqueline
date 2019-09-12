@@ -4,7 +4,7 @@ function setup() {
  createCanvas(windowWidth,windowHeight);
  background(0);
 
- socket = io.connect('127.0.0.1:9527');
+ socket = io.connect('192.168.2.115:9527');
  socket.on('newText',newDrawing);
  textAlign(CENTER);
  textSize(50);
@@ -19,5 +19,5 @@ function newDrawing(data){
 
 function draw() {
      background(0);
-     ellipse(inputX,inputY,100,100);
+     ellipse(width/2,height/2,inputX,inputX);
 }
