@@ -110,14 +110,14 @@ function pureWhite(){
         inputY = 0;
         run =false;
         flag = 0;
+        background(0);
     }
 }
 function expand(){
-    flag += 30;
+    flag += 25;
     rectMode(CENTER);
     fill(255);
     rect(width/2,height/2,width,map(flag,0,100,0,height));
-
 
     if(flag <100){
         run=true;
@@ -126,6 +126,7 @@ function expand(){
         inputY = 0;
         run = false;
         flag=0;
+        background(0);
     }
 }
 function shrink(){
@@ -139,6 +140,7 @@ function shrink(){
         inputY = 0;
         run = false;
         flag = 0;
+        
     }
 
 }
