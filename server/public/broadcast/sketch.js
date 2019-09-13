@@ -28,15 +28,17 @@ function triggerBeat() {
 
 function receiveOsc(address, value) {
 	console.log("received OSC: " + address + ", " + value);
-	var x,y;
+	var x,y,z;
 	if (address == '/test') {
 		x = value[0];
 		y = value[1];
+                z = value[2];
 	}
 
         var data = {
             x : x,
-            y : y
+            y : y,
+            z : z
         }
         socket.emit('data',data);
 }
